@@ -166,7 +166,7 @@ export class VehiculeFormComponent implements OnInit {
         next: () => this.router.navigate(['/vehicules']),
         error: (err) => {
           this.isSaving = false;
-          this.errorMessage = err.error?.message || 'Erreur lors de la mise à jour';
+          this.errorMessage = typeof err.error === 'string' ? err.error : (err.error?.message || err.error?.error || 'Erreur lors de la mise à jour');
         }
       });
     } else {
@@ -174,7 +174,7 @@ export class VehiculeFormComponent implements OnInit {
         next: () => this.router.navigate(['/vehicules']),
         error: (err) => {
           this.isSaving = false;
-          this.errorMessage = err.error?.message || 'Erreur lors de la création';
+          this.errorMessage = typeof err.error === 'string' ? err.error : (err.error?.message || err.error?.error || 'Erreur lors de la création');
         }
       });
     }

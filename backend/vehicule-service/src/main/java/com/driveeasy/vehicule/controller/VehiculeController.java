@@ -73,10 +73,10 @@ public class VehiculeController {
             throw new ConflictException("Un véhicule avec l'immatriculation '" + dto.getImmatriculation() + "' existe déjà");
         }
 
-        // Règle de gestion : L'année doit être cohérente (<= année courante)
+        // Règle de gestion : L'année doit être cohérente (entre 1990 et année courante + 2)
         int currentYear = Year.now().getValue();
-        if (dto.getAnnee() > currentYear) {
-            throw new BadRequestException("L'année du véhicule (" + dto.getAnnee() + ") ne peut pas dépasser l'année courante (" + currentYear + ")");
+        if (dto.getAnnee() < 1990 || dto.getAnnee() > currentYear + 2) {
+            throw new BadRequestException("L'année du véhicule doit être comprise entre 1990 et " + (currentYear + 2));
         }
 
         // Règle de gestion : Le prix journalier doit être strictement positif
