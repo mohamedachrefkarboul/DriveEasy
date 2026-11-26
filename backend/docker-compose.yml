@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Distributed Tracing - Zipkin
+  # Port 9411: Interface Web & API de collecte de spans
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: driveeasy-zipkin
+    restart: always
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=mem
+    networks:
+      - driveeasy-network
+
+networks:
+  driveeasy-network:
+    driver: bridge
